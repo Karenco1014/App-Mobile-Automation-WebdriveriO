@@ -1,0 +1,21 @@
+{
+  "name": "webdriver_io_app_automation",
+  "version": "0.1.0",
+  "private": true,
+  "devDependencies": {
+    "@wdio/appium-service": "^8.29.0",
+    "@wdio/cli": "^8.3.5",
+    "@wdio/local-runner": "^8.29.0",
+    "@wdio/mocha-framework": "^8.29.0",
+    "@wdio/spec-reporter": "^8.29.0",
+    "appium": "^2.4.1",
+    "appium-uiautomator2-driver": "^2.42.2"
+  },
+  "scripts": {
+    "wdio": "wdio run ./wdio.conf.js"
+  },
+  "dependencies": {
+    "deepmerge-ts": "^5.1.0",
+    "webdriverio": "^8.29.0"
+  }
+}
