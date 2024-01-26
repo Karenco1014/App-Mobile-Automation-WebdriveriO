@@ -1,49 +1,49 @@
 class LoginPage {
     constructor() {
-        this.UsernameInput = '[content-desc="Username input field"]';
-        this.PasswordInput = '[content-desc="Password input field"]';
-        this.LoginButton =  '[content-desc="Login button"]';
-        this.MenuButton = '[content-desc="open menu"]';
-        this.LoginOption = '//*[@text="Log In"]'
+      this.UsernameInput = '[content-desc="Username input field"]';
+      this.PasswordInput = '[content-desc="Password input field"]';
+      this.LoginButton = '[content-desc="Login button"]';
+      this.MenuButton = "~open menu";
+      this.LoginOption = "//*[@text='Log In']";
     }
-
-    enterUsername(email) {
-        it('Enter Username on email input field', () => {
-            $(this.UsernameInput).setValue(email);
-        });
+  
+    async enterUsername(email) {
+      const usernameInput = await $(this.UsernameInput);
+      await usernameInput.waitForExist();
+      await usernameInput.setValue(email);
     }
-
-    enterPassword(password) {
-        it('Enter Password on password input field', () => {
-            $(this.PasswordInput).setValue(password);
-        });
+  
+    async enterPassword(password) {
+      const passwordInput = await $(this.PasswordInput);
+      await passwordInput.waitForExist();
+      await passwordInput.setValue(password);
     }
-
-    clickContinueButton() {
-        it('Click Continue Button for Login process', () => {
-            $(this.LoginButton).click();
-        });
+  
+    async clickContinueButton() {
+      const loginButton = await $(this.LoginButton);
+      await loginButton.waitForExist();
+      await loginButton.click();
     }
-
-    clickMenuButton() {
-        it('Click Menu Button', () => {
-            $(this.MenuButton).click();
-        });
+  
+    async clickMenuButton() {
+            const menuButton = $(this.MenuButton);
+            await menuButton.waitForExist();
+            await menuButton.click();
     }
-
-    clickLoginOption() {
-        it('Click Menu Button', () => {
-            $(this.LoginOption).click();
-        });
+    
+  
+    async clickLoginOption() {
+      const loginOption = await $(this.LoginOption);
+      await loginOption.waitForExist();
+      await loginOption.click();
     }
-
-    login(email, password) {
-        it('Login With Valid Credentials', () => {
-            this.enterUsername(email);
-            this.enterPassword(password);
-            this.clickContinueButton();
-        });
+  
+    async login(email, password) {
+      await this.enterUsername(email);
+      await this.enterPassword(password);
+      await this.clickContinueButton();
     }
-}
-
-module.exports = new LoginPage();
+  }
+  
+  module.exports = LoginPage;
+  

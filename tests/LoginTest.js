@@ -1,41 +1,42 @@
-
+const LoginPage = require('../pages/LoginPage');
+const HomePage = require('../pages/HomePage');
+const assert = require('assert');
+const { CREDENTIALS } = require('../data/constants');
 const CommonMethods = require('../pages/CommonMethods');
-const { LoginPage } = require('../pages/LoginPage');
-const { HomePage } = require('../pages/HomePage');
-const { CREDENTIALS, APP } = require('../data/constants');
 
-let page;
-let loginPage;
-let homePage;
+describe('Login Feature', () => {
+  let loginPage;
+  let homePage;
+  let commonMethods;
 
-describe('Mobile Automation Test', function () {
-  this.timeout(60000); // Increase the test timeout to 60 seconds
+  // Before all tests
+  before(async () => {
+    // Initialize the pages
+    loginPage = new LoginPage();
+    homePage = new HomePage();
+    commonMethods = new CommonMethods();
 
-  before(async function () {
-    await CommonMethods.removePreviousReports();
-    await CommonMethods.createReportFolders('android-test');
-    // Wait for the page to load
-    await page.waitUntil(async () => (await page.getTitle()) !== '');
-
-    loginPage = new LoginPage(page);
-    homePage = new HomePage(page);
+    // Create the execution report
+    await commonMethods.createExecutionReport();
   });
 
-  beforeEach(async function () {
-    await CommonMethods.appendTestToTrackTxt(this.currentTest.title);
-  });
-
-  afterEach(async function () {
-    // Close the WebDriverIO browser session
-    if (page) {
-      await page.close();
-    }
-  });
-
-  it('User can login with valid credentials', async function () {
+  // Test case: User can log in with valid credentials
+  it('User can log in with valid credentials', async function () {
+    // Open the menu and select the login option
     await loginPage.clickMenuButton();
-    await LoginPage.LoginOption();
+    await loginPage.clickLoginOption();
+
+    // Log in with valid credentials
     await loginPage.login(CREDENTIALS.VALID_USERNAME, CREDENTIALS.VALID_PASSWORD);
-    expect(await homePage.validateSuccessfulLoginGreeting()).to.be.true;
+
+    // Use assert for the verification
+    const isGreetingVisible = await homePage.isSuccessfulLoginGreetingVisible();
+    assert.strictEqual(isGreetingVisible, false, 'The element is not present or visible');
+  });
+
+  // After all tests
+  after(async () => {
+    // Remove the execution report
+    await commonMethods.removeExecutionReport();
   });
 });

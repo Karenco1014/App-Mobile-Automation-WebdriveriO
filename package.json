@@ -9,13 +9,28 @@
     "@wdio/mocha-framework": "^8.29.0",
     "@wdio/spec-reporter": "^8.29.0",
     "appium": "^2.4.1",
-    "appium-uiautomator2-driver": "^2.42.2"
+    "appium-uiautomator2-driver": "^2.42.2",
+    "chai": "^5.0.0",
+    "mocha": "^10.2.0"
   },
   "scripts": {
     "wdio": "wdio run ./wdio.conf.js"
   },
+  "mocha": {
+    "reporter": "mochawesome",
+    "reporterOptions": {
+      "reportDir": "./mochawesome-report",
+      "reportName": "index",
+      "reportTitle": "My Test Report",
+      "inline": true,
+      "inlineDiffs": true
+    }
+  },
   "dependencies": {
     "deepmerge-ts": "^5.1.0",
+    "mochawesome": "7.1.2",
+    "mochawesome-report-generator": "^6.2.0",
+    "wdio-timeline-reporter": "^5.1.4",
     "webdriverio": "^8.29.0"
   }
 }
